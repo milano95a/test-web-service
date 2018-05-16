@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div th:fragment="pagination">
+
+    <div class="dataTables_paginate paging_simple_numbers">
+      <ul class="pagination">
+
+          <!--First-->
+          <li th:if="${page.hasprevious}">
+              <a th:href="${links.pagination} + ${page.first()}" class="btn btn-link" th:text="${lang.first}"></a>
+          </li>
+          <li th:unless="${page.hasprevious}">
+              <a href="#" class="btn btn-link disabled" th:text="${lang.first}"></a>
+          </li>
+
+        <!--Previous-->
+        <li th:if="${page.hasprevious}">
+          <a th:href="${links.pagination} + ${page.previous()}" class="btn btn-link" th:text="${lang.previous}"></a>
+        </li>
+
+        <li th:unless="${page.hasprevious}">
+          <a class="btn btn-link disabled" th:text="${lang.previous}"></a>
+        </li>
+
+        <!--if else-->
+        <li th:each="p : ${page.pages}">
+          <a  th:if="${page.currentpage(p)}" class="btn btn-link disabled" th:text="${p}"></a>
+          <a  th:unless="${page.currentpage(p)}" class="btn btn-link" th:href="${links.pagination} + ${p}"  th:text="${p}"></a>
+        </li>
+
+        <!--Next-->
+        <li th:if="${page.hasnext}">
+          <a th:href="${links.pagination} + ${page.next()}" class="btn btn-link" th:text="${lang.next}">Next</a>
+        </li>
+
+        <li th:unless="${page.hasnext}" >
+          <a href="#" class="btn btn-link disabled" th:text="${lang.next}">Next</a>
+        </li>
+
+          <!--Last-->
+          <li th:if="${page.hasnext}">
+              <a th:href="${links.pagination} + ${page.last()}" class="btn btn-link" th:text="${lang.last}"></a>
+          </li>
+          <li th:unless="${page.haslast}">
+              <a href="#" class="btn btn-link disabled" th:text="${lang.last}"></a>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+  </body>
+</html>

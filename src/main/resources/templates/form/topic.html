@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div class="x_content" th:fragment="content">
+
+      <form class="form-inline" th:action="@{${links.topics}}" th:object="${object}" method="post" >
+          <a class="btn btn-primary" th:href="${links.topics}">
+              <i class="fa fa-edit"></i>
+              <span th:text="${lang.sideTopics}"></span>
+          </a>
+
+      </form>
+
+    <form enctype="multipart/form-data" action="#" th:action="@{${links.form_submit}}" th:object="${object}" method="post" class="form-horizontal form-label-left">
+
+      <textarea th:unless="${editable} == null" style="display: none;" th:text="${editable.id}" th:field="*{id}" class="form-control col-md-7 col-xs-12"></textarea>
+
+      <!--Select Subject-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.topicSubject}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select required="required" th:if="${editable} == null" th:field="*{subject}" class="form-control">
+            <option value="" th:text="${lang.selectSubject}"></option>
+            <option th:each="s : ${subjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+
+          <select required="required" th:unless="${editable} == null" th:field="*{subject}" class="form-control">
+            <option th:text="${editable.subject}" th:value="${editable.subject}"></option>
+            <option th:each="s : ${subjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+        </div>
+      </div>
+
+      <!--Topic name-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.topicName}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <textarea required="required" th:if="${editable} == null" th:field="*{topic}" class="form-control col-md-7 col-xs-12"></textarea>
+          <textarea required="required" th:unless="${editable} == null" th:text="${editable.topic}" name="topic" class="form-control col-md-7 col-xs-12"></textarea>
+        </div>
+      </div>
+
+      <!--Russian Topic name-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.topicRuName}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <textarea required="required" th:if="${editable} == null" th:field="*{ruTopic}" class="form-control col-md-7 col-xs-12"></textarea>
+          <textarea required="required" th:unless="${editable} == null" th:text="${editable.ruTopic}" th:field="*{ruTopic}" class="form-control col-md-7 col-xs-12"></textarea>
+        </div>
+      </div>
+
+      <!--Question Config-->
+      <!--<div class="item form-group">-->
+        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.topicQuestionConfig}"></label>-->
+        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+          <!--<input required="required" th:if="${editable} == null" th:field="*{questionConfig}" class="form-control col-md-7 col-xs-12" type="number"/>-->
+          <!--<input required="required" th:unless="${editable} == null" th:value="${editable.questionConfig}" name="questionConfig" class="form-control col-md-7 col-xs-12" type="number"/>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <div class="clearfix"></div>
+
+      <!--Submit-->
+      <div class="ln_solid"></div>
+
+      <div th:replace="${@environment.getProperty('submit')} :: submit"></div>
+
+    </form>
+
+  </div>
+
+  </body>
+</html>

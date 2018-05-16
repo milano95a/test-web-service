@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div class="x_content" th:fragment="content">
+
+      <a class="btn btn-primary" th:href="${links.course_form}">
+          <i class="fa fa-edit"></i>
+          <span th:text="${lang.add_new_faculty}"></span>
+      </a>
+
+    <table class="table table-striped projects">
+
+      <thead>
+        <tr>
+          <th style="width: 1%">#</th>
+          <th style="width: 15%" th:text="${lang.courseName}">Course name</th>
+          <th th:text="${lang.latitude}">Latitude</th>
+          <th th:text="${lang.longitude}">Longitude</th>
+          <th th:text="${lang.phone}">Course Phone</th>
+          <th th:text="${lang.rating}">Course Rating</th>
+          <th th:text="${lang.edit}" style="width: 20%">Edit</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="l: ${page.list}">
+
+          <td th:text="${l.id}"></td>
+          <!--courseName-->
+          <td><a th:text="${l.courseName}"></a></td>
+          <!--latitude-->
+          <td><a th:text="${l.latitude}"></a></td>
+          <!--longitude-->
+          <td><a th:text="${l.longitude}"></a></td>
+          <!--coursePhone-->
+          <td><a th:text="${l.coursePhone}"></a></td>
+          <!--courseRating-->
+          <td><a th:text="${l.courseRating}"></a></td>
+          <!--Edit-->
+          <td>
+            <div th:replace="${@environment.getProperty('editable')} :: editable"></div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div th:replace="${@environment.getProperty('pagination')} :: pagination"></div>
+  </div>
+
+  </body>
+</html>

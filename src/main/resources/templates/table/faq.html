@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div class="x_content" th:fragment="content">
+
+      <a class="btn btn-primary" th:href="${links.faq_form}">
+          <i class="fa fa-edit"></i>
+          <span th:text="${lang.add_new_faq}"></span>
+      </a>
+
+      <table class="table table-striped projects">
+
+      <thead>
+      <tr>
+        <th style="width: 1%">#</th>
+        <th th:text="${lang.faqTableQuestion}">Question</th>
+        <th th:text="${lang.faqTableAnswer}">Answer</th>
+        <th th:text="${lang.faqTableRuQuestion}">Russian Question</th>
+        <th th:text="${lang.faqTableRuAnswer}">Russian Answer</th>
+        <th style="width: 20%" th:text="${lang.edit}">Edit</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="l: ${page.list}">
+        <td th:text="${l.id}"></td>
+        <td th:text="${l.questionText}"></td>
+        <td th:text="${l.answer}"></td>
+        <td th:text="${l.ruquestionText}"></td>
+        <td th:text="${l.ruanswer}"></td>
+        <!--Edit-->
+        <td>
+          <div th:replace="${@environment.getProperty('editable')} :: editable"></div>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+    <div th:replace="${@environment.getProperty('pagination')} :: pagination">
+
+    </div>
+
+  </div>
+  </body>
+</html>

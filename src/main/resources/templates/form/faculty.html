@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div class="x_content" th:fragment="content">
+
+      <form class="form-inline" th:action="@{${links.faculties}}" th:object="${object}" method="post" >
+          <a class="btn btn-primary" th:href="${links.faculties}">
+              <i class="fa fa-edit"></i>
+              <span th:text="${lang.sideFaculties}"></span>
+          </a>
+
+      </form>
+
+    <form enctype="multipart/form-data" action="#" th:action="@{${links.form_submit}}" th:object="${object}" method="post" class="form-horizontal form-label-left">
+
+      <textarea th:unless="${editable} == null" style="display: none;" th:text="${editable.id}" th:field="*{id}" class="form-control col-md-7 col-xs-12"></textarea>
+
+      <!--Select Unviersity-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyUniversity}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select th:if="${editable} == null" required="required" th:field="*{universityName}" class="form-control">
+            <option value="" th:text="${lang.selectUniversity}"></option>
+            <option th:each="u : ${unis}"
+                    th:value="${u}"
+                    th:text="${u}"></option>
+          </select>
+
+          <select th:unless="${editable} == null" required="required" th:field="*{universityName}" class="form-control">
+            <option th:text="${editable.universityName}" th:value="${editable.universityName}"></option>
+            <option th:each="u : ${unis}"
+                    th:value="${u}"
+                    th:text="${u}"></option>
+          </select>
+        </div>
+      </div>
+
+      <!--Faculty name-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyName}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <textarea th:if="${editable} == null" required="required" th:field="*{facultyName}" class="form-control col-md-7 col-xs-12"></textarea>
+          <textarea th:unless="${editable} == null" required="required" th:text="${editable.facultyName}" th:field="*{facultyName}" class="form-control col-md-7 col-xs-12"></textarea>
+        </div>
+      </div>
+
+      <!--Faculty ru name-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyRuName}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <textarea th:if="${editable} == null" required="required" th:field="*{facultyRuName}" class="form-control col-md-7 col-xs-12"></textarea>
+          <textarea th:unless="${editable} == null" required="required" th:text="${editable.facultyRuName}" th:field="*{facultyRuName}" class="form-control col-md-7 col-xs-12"></textarea>
+        </div>
+      </div>
+
+      <!--Select Top Subject-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyTopSubject}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select th:if="${editable} == null" required="required" th:field="*{topSubject}" class="form-control">
+            <option value="" th:text="${lang.selectSubject}"></option>
+            <option th:each="s : ${subjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+
+          <select th:unless="${editable} == null" required="required" th:field="*{topSubject}" class="form-control">
+            <option th:text="${editable.topSubject}" th:value="${editable.topSubject}" ></option>
+            <option th:each="s : ${topSubjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+        </div>
+      </div>
+
+      <!--Select Mid Subject-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyMidSubject}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select th:if="${editable} == null" required="required" th:field="*{midSubject}" class="form-control">
+            <option value="" th:text="${lang.selectSubject}"></option>
+            <option th:each="s : ${subjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+
+          <select th:unless="${editable} == null" required="required" th:field="*{midSubject}" class="form-control">
+            <option th:text="${editable.midSubject}" th:value="${editable.midSubject}"></option>
+            <option th:each="s : ${midSubjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+        </div>
+      </div>
+
+      <!--Select Bot Subject-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyBotSubject}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select th:if="${editable} == null" required="required" th:field="*{botSubject}" class="form-control">
+            <option value="" th:text="${lang.selectSubject}"></option>
+            <option th:each="s : ${subjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+
+          <select th:unless="${editable} == null" required="required" th:field="*{botSubject}" class="form-control">
+            <option th:text="${editable.botSubject}" th:value="${editable.botSubject}"></option>
+            <option th:each="s : ${botSubjects}"
+                    th:value="${s}"
+                    th:text="${s}"></option>
+          </select>
+        </div>
+      </div>
+
+      <!--&lt;!&ndash;Grant text&ndash;&gt;-->
+      <!--<div class="item form-group">-->
+        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyGantPlace}"></label>-->
+        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+          <!--<input th:if="${editable} == null" required="required" th:field="*{grantPlace}" class="form-control col-md-7 col-xs-12" type="number"/>-->
+          <!--<input th:unless="${editable} == null" required="required" th:value="${editable.grantPlace}"  name="grantPlace" class="form-control col-md-7 col-xs-12" type="number"/>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash;Contract text&ndash;&gt;-->
+      <!--<div class="item form-group">-->
+        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyContractPlace}"></label>-->
+        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+          <!--<input th:if="${editable} == null" required="required" th:field="*{contractPlace}" class="form-control col-md-7 col-xs-12" type="number"/>-->
+          <!--<input th:unless="${editable} == null" required="required" th:value="${editable.contractPlace}" name="contractPlace" class="form-control col-md-7 col-xs-12" type="number"/>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--Grant Score-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyGrantScore}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <input th:if="${editable} == null" th:field="*{grantScore}" class="form-control col-md-7 col-xs-12" type="number" th:step="any"/>
+          <input th:unless="${editable} == null" th:value="${editable.grantScore}" name="grantScore" class="form-control col-md-7 col-xs-12" type="number" th:step="any"/>
+        </div>
+      </div>
+
+      <!--Contract Score-->
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" th:text="${lang.facultyContractScore}"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input th:if="${editable} == null" th:field="*{contractScore}" class="form-control col-md-7 col-xs-12" type="number" th:step="any"/>
+            <input th:unless="${editable} == null" th:value="${editable.contractScore}" name="contractScore" class="form-control col-md-7 col-xs-12" type="number" th:step="any"/>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <!--Submit-->
+      <div class="ln_solid"></div>
+
+      <div th:replace="${@environment.getProperty('submit')} :: submit"></div>
+
+    </form>
+  </div>
+  </body>
+</html>

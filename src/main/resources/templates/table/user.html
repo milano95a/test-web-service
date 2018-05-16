@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+    <div class="x_content" th:fragment="content">
+
+    <!-- start project list -->
+    <table class="table table-striped projects">
+
+      <thead>
+      <tr>
+        <th th:text="${lang.userTableUserId}">#</th>
+        <th th:text="${lang.userTableUserName}">Username</th>
+        <th th:text="${lang.userTableUserCreateDate}">Create Date</th>
+        <th th:text="${lang.userTableUserLoginType}">Login Type</th>
+        <th th:text="${lang.userTableUserScore}">Score</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="l: ${page.list}">
+        <td th:text="${l.id}"></td>
+        <td th:text="${l.username}"></td>
+        <td th:text="${l.createDate}"></td>
+        <td th:text="${l.loginType}"></td>
+        <td th:text="${l.score}"></td>
+      </tr>
+      </tbody>
+
+    </table>
+
+    <div th:replace="${@environment.getProperty('pagination')} :: pagination"></div>
+
+  </div>
+
+  </body>
+</html>

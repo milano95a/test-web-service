@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+
+  <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}"  href="/vendors/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet"/>
+    <!-- iCheck -->
+    <link href="/vendors/iCheck/skins/flat/green.css" th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet"/>
+    <link href="/vendors/dropzone/dist/min/dropzone.min.css" th:href="@{/vendors/dropzone/dist/min/dropzone.min.css}" rel="stylesheet"/>
+
+      <!-- Custom Theme Style -->
+      <link href="/build/css/custom.min.css" th:href="@{/build/css/custom.min.css}" rel="stylesheet"/>
+      <link href="/build/css/style.css" th:href="@{/build/css/style.css}" rel="stylesheet"/>
+      <!-- Custom Theme Style -->
+      <link href="/radiobutton.css" th:href="@{/radiobutton.css}" rel="stylesheet"/>
+
+      <!--Jquery-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+
+        <!--side panel-->
+        <div th:replace="${@environment.getProperty('side')} :: side"></div>
+        <!--/side panel-->
+
+        <!-- top navigation -->
+        <div th:replace="${@environment.getProperty('nav')} :: nav"></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                  <div class="x_title">
+                    <h2>
+                        <span th:text="${lang.contentTitle}"></span>
+                        <span th:if="${page} != null" th:text="' (' + ${page.totalItems} + ') '"></span>
+                    </h2>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div th:replace="${@environment.getProperty(links.content)} :: content">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right"><a href="#"> </a></div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+//        function search(link) {
+//            console.log(link);
+//            var input = document.getElementById('search_txt').value;
+//            console.log(input);
+////            window.location.href = "http://stackoverflow.com";
+//        }
+
+//        $(document).ready(function(){
+//            $('#subject').change(function () {
+//                var subject = $('#subject').val();
+//
+//                var topicDropDown = document.getElementById("topic");
+//                while (topicDropDown.firstChild) {
+//                    topicDropDown.removeChild(topicDropDown.firstChild);
+//                }
+//
+//                $.ajax({
+//                    url:'/admin/gettopics/' + subject,
+//                    type:"GET",
+//
+//                    beforeSend:function () {
+//                        console.log('before send');
+//                    },
+//
+//                    success:function (result, status, xhr) {
+//                        console.log('success');
+//                        console.log('xhr ' + xhr);
+//                        console.log('status ' + status);
+//                        console.log('result ' + JSON.stringify(result));
+//
+//                        var topicDropDown = document.getElementById("topic");
+//
+//                        for(i in result){
+//                            console.log(result);
+//                            var option = document.createElement('option');
+//                            option.text = result[i].topic;
+//                            option.value = result[i].topic;
+//                            topicDropDown.appendChild(option);
+//                        }
+//                    },
+//
+//                    error:function (xhr,status,error) {
+//                        console.log('error');
+//                        console.log('xhr ' + xhr);
+//                        console.log('status ' + status);
+//                        console.log('error ' + error);
+//                    }
+//                })
+//
+//            })
+//        })
+
+    </script>
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js" th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js" th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- FastClick -->
+    <script src="/vendors/fastclick/lib/fastclick.js" th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script src="/vendors/nprogress/nprogress.js" th:src="@{/vendors/nprogress/nprogress.js}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/build/js/custom.min.js" th:src="@{/build/js/custom.min.js}"></script>
+    <script src="/build/js/imageRenderer.js" th:src="@{/build/js/imageRenderer.js}"></script>
+    <script src="/build/js/validation.js" th:src="@{/build/js/validation.js}"></script>
+    <script src="/build/js/dropdown.js" th:src="@{/build/js/dropdown.js}"></script>
+    <script src="/build/js/course.js" th:src="@{/build/js/course.js}"></script>
+    <script src="/build/js/university.js" th:src="@{/build/js/university.js}"></script>
+  </body>
+</html>

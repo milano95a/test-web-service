@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head></head>
+
+<body>
+
+<div class="x_content"
+     th:fragment="content">
+
+    <form class="form-inline"
+          th:action="@{${links.questions}}"
+          th:object="${object}"
+          method="post">
+        <a class="btn btn-primary"
+           th:href="${links.questions}">
+            <i class="fa fa-edit"></i>
+            <span th:text="${lang.sideQuestions}"></span>
+        </a>
+
+    </form>
+
+    <form enctype="multipart/form-data"
+          action="#"
+          th:action="@{${links.form_submit}}"
+          th:object="${object}"
+          method="post"
+          class="form-horizontal form-label-left">
+
+        <textarea
+                th:unless="${editable} == null"
+                style="display: none;"
+                th:text="${editable.id}"
+                th:field="*{id}"
+                class="form-control col-md-7 col-xs-12"></textarea>
+
+        <!--Select language-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionLanguage}"></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+                <select th:if="${editable} == null"
+                        th:field="*{language}"
+                        class="form-control"
+                        required="required">
+                    <option value=""
+                            th:text="${lang.selectLanguage}">
+                        Select
+                        language
+                    </option>
+                    <option th:each="l : ${languages}"
+                            th:value="${l}"
+                            th:text="${l}"></option>
+                </select>
+
+                <select th:unless="${editable} == null"
+                        th:field="*{language}"
+                        class="form-control"
+                        required="required">
+                    <option th:text="${editable.language}"
+                            th:value="${editable.language}"></option>
+                    <option th:each="l : ${languages}"
+                            th:value="${l}"
+                            th:text="${l}"></option>
+                </select>
+            </div>
+        </div>
+
+        <!--Select Subject-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionSubject}">Select
+                subject</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <select th:if="${editable} == null"
+                        th:field="*{subject}"
+                        id="subject"
+                        class="form-control"
+                        required="required">
+                    <option value=""
+                            th:text="${lang.selectSubject}">
+                        Select
+                        subject
+                    </option>
+                    <option th:each="s : ${subjects}"
+                            th:value="${s}"
+                            th:text="${s}">
+                    </option>
+                </select>
+
+                <select th:unless="${editable} == null"
+                        th:field="*{subject}"
+                        id="subject"
+                        class="form-control"
+                        required="required">
+                    <option th:text="${editable.subject}"
+                            th:value="${editable.subject}"></option>
+                    <option th:each="s : ${subjects}"
+                            th:value="${s}"
+                            th:text="${s}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!--Select Topic-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionTopic}">Select
+                topic</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <select th:if="${editable} == null"
+                        th:field="*{topic}"
+                        id="topic"
+                        class="form-control"
+                        required="required">
+                    <option value=""
+                            th:text="${lang.selectTopic}">
+                        Select
+                        topic
+                    </option>
+                </select>
+
+                <select th:unless="${editable} == null"
+                        th:field="*{topic}"
+                        id="topic"
+                        class="form-control"
+                        required="required">
+                    <option th:text="${editable.topic}"
+                            th:value="${editable.topic}"></option>
+                    <option th:each="t : ${topics}"
+                            th:value="${t}"
+                            th:text="${t}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!--Question text-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionQuestionText}">Question</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+              <textarea
+                      th:if="${editable} == null"
+                      th:field="*{questionText}"
+                      class="form-control col-md-7 col-xs-12"
+                      required="required">
+              </textarea>
+                <div th:unless="${editable} == null">
+                <textarea
+                        th:if="${editable.questionImgPath} != null"
+                        th:text="${editable.questionText}"
+                        th:field="*{questionText}"
+                        class="form-control col-md-7 col-xs-12">
+                </textarea>
+                    <textarea
+                            th:if="${editable.questionImgPath} == null"
+                            th:text="${editable.questionText}"
+                            th:field="*{questionText}"
+                            class="form-control col-md-7 col-xs-12"
+                            required="required">
+                </textarea>
+                </div>
+            </div>
+        </div>
+        <!--Question Image View State-->
+        <input th:if="${editable} != null"
+               th:value="true"
+               th:field="*{isQuestionImgUpdated}"
+               id="isQuestionImgUpdated"
+               type="checkbox"
+               style="display: none"
+        />
+        <!--Question Image View-->
+        <div th:if="${editable} == null"
+             class="item form-group"
+             style="display: none"
+             id="divQuestionImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <!--<div id="sample">-->
+                <img src=""
+                     style="max-height: 120px;"
+                     id="questionImageView"/>
+                <!--</div>-->
+            </div>
+        </div>
+        <div th:unless="${editable} == null"
+             class="item form-group"
+             id="divQuestionImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <!--<div id="sample">-->
+                <img th:src="${editable.questionImgPath}"
+                     style="max-height: 120px;"
+                     id="questionImageView"/>
+                <!--</div>-->
+            </div>
+        </div>
+        <!--Question image-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="control-label col-md-4 col-sm-4 col-xs-12">
+                <input type="file"
+                       th:field="*{questionImg}"/>
+            </div>
+        </div>
+
+        <br/>
+        <!--A text-->
+        <!--<div>-->
+            <!--<div class="parent">-->
+                <!--<img alt="placeholder_globo.jpg"-->
+                     <!--src="/images/user.png"/>-->
+                <!--<div class="hover-view">-->
+                    <!--<svg width="54px"-->
+                         <!--height="54px"-->
+                         <!--viewBox="0 0 54 54"-->
+                         <!--version="1.1"-->
+                         <!--xmlns="http://www.w3.org/2000/svg"-->
+                         <!--xmlns:xlink="http://www.w3.org/1999/xlink"-->
+                         <!--xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">-->
+                        <!--<title>-->
+                            <!--Error</title>-->
+                        <!--<defs></defs>-->
+                        <!--<g id="Page-1"-->
+                           <!--stroke="none"-->
+                           <!--stroke-width="1"-->
+                           <!--fill="none"-->
+                           <!--fill-rule="evenodd"-->
+                           <!--sketch:type="MSPage">-->
+                            <!--<g id="Check-+-Oval-2"-->
+                               <!--sketch:type="MSLayerGroup"-->
+                               <!--stroke="#747474"-->
+                               <!--stroke-opacity="0.198794158"-->
+                               <!--fill="#FFFFFF"-->
+                               <!--fill-opacity="0.816519475">-->
+                                <!--<path d="M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z"-->
+                                      <!--id="Oval-2"-->
+                                      <!--sketch:type="MSShapeGroup"></path>-->
+                            <!--</g>-->
+                        <!--</g>-->
+                    <!--</svg>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionAnswerA}">Answer
+                A</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <textarea
+                      th:if="${editable} == null"
+                      th:field="*{aText}"
+                      class="form-control col-md-7 col-xs-12"
+                      required="required">
+              </textarea>
+                <div th:unless="${editable} == null">
+                <textarea
+                        th:if="${editable.aImgPath} != null"
+                        th:text="${editable.aText}"
+                        th:field="*{aText}"
+                        class="form-control col-md-7 col-xs-12">
+                </textarea>
+                    <textarea
+                            th:if="${editable.aImgPath} == null"
+                            th:text="${editable.aText}"
+                            th:field="*{aText}"
+                            class="form-control col-md-7 col-xs-12"
+                            required="required">
+                </textarea>
+                </div>
+            </div>
+        </div>
+        <!--A Image View State-->
+        <input th:if="${editable} != null"
+               th:value="true"
+               th:field="*{isAImgUpdated}"
+               id="isAImgUpdated"
+               type="checkbox"
+               style="display: none"/>
+        <!--A Image View-->
+        <div th:if="${editable} == null"
+             class="item form-group"
+             style="display: none"
+             id="divAImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src=""
+                     style="max-height: 120px;"
+                     id="aImageView"/>
+            </div>
+        </div>
+        <div th:unless="${editable} == null"
+             class="item form-group"
+             id="divAImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img th:src="${editable.aImgPath}"
+                     style="max-height: 120px;"
+                     id="aImageView"/>
+            </div>
+        </div>
+        <!--A image-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                <input type="file"
+                       th:field="*{aImg}"/>
+            </div>
+        </div>
+
+        <!--B text-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionAnswerB}">Answer
+                B</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <textarea
+                      th:if="${editable} == null"
+                      th:field="*{bText}"
+                      class="form-control col-md-7 col-xs-12"
+                      required="required">
+              </textarea>
+                <div th:unless="${editable} == null">
+                <textarea
+                        th:if="${editable.bImgPath} != null"
+                        th:text="${editable.bText}"
+                        th:field="*{bText}"
+                        class="form-control col-md-7 col-xs-12">
+                </textarea>
+                    <textarea
+                            th:if="${editable.bImgPath} == null"
+                            th:text="${editable.bText}"
+                            th:field="*{bText}"
+                            class="form-control col-md-7 col-xs-12"
+                            required="required">
+                </textarea>
+                </div>
+            </div>
+        </div>
+        <!--B Image View State-->
+        <input th:if="${editable} != null"
+               th:value="true"
+               th:field="*{isBImgUpdated}"
+               id="isBImgUpdated"
+               type="checkbox"
+               style="display: none"/>
+        <!--B Image View-->
+        <div th:if="${editable} == null"
+             class="item form-group"
+             style="display: none"
+             id="divBImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src=""
+                     style="max-height: 120px;"
+                     id="bImageView"/>
+            </div>
+        </div>
+        <div th:unless="${editable} == null"
+             class="item form-group"
+             id="divBImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img th:src="${editable.bImgPath}"
+                     style="max-height: 120px;"
+                     id="bImageView"/>
+            </div>
+        </div>
+        <!--B image-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                <input type="file"
+                       th:field="*{bImg}"/>
+            </div>
+        </div>
+
+        <!--C text-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionAnswerC}">Answer
+                C</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <textarea
+                      th:if="${editable} == null"
+                      th:field="*{cText}"
+                      class="form-control col-md-7 col-xs-12"
+                      required="required">
+              </textarea>
+                <div th:unless="${editable} == null">
+                <textarea
+                        th:if="${editable.cImgPath} != null"
+                        th:text="${editable.cText}"
+                        th:field="*{cText}"
+                        class="form-control col-md-7 col-xs-12">
+                </textarea>
+                    <textarea
+                            th:if="${editable.cImgPath} == null"
+                            th:text="${editable.cText}"
+                            th:field="*{cText}"
+                            class="form-control col-md-7 col-xs-12"
+                            required="required">
+                </textarea>
+                </div>
+            </div>
+        </div>
+        <!--C Image View State-->
+        <input th:if="${editable} != null"
+               th:value="true"
+               th:field="*{isCImgUpdated}"
+               id="isCImgUpdated"
+               type="checkbox"
+               style="display: none"/>
+        <!--C Image View-->
+        <div th:if="${editable} == null"
+             class="item form-group"
+             style="display: none"
+             id="divCImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src=""
+                     style="max-height: 120px;"
+                     id="cImageView"/>
+            </div>
+        </div>
+        <div th:unless="${editable} == null"
+             class="item form-group"
+             id="divCImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img th:src="${editable.cImgPath}"
+                     style="max-height: 120px;"
+                     id="cImageView"/>
+            </div>
+        </div>
+        <!--C image-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                <input type="file"
+                       th:field="*{cImg}"/>
+            </div>
+        </div>
+
+        <!--D text-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionAnswerD}">Answer
+                D</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <textarea
+                      th:if="${editable} == null"
+                      th:field="*{dText}"
+                      class="form-control col-md-7 col-xs-12"
+                      required="required">
+              </textarea>
+                <div th:unless="${editable} == null">
+                <textarea
+                        th:if="${editable.dImgPath} != null"
+                        th:text="${editable.dText}"
+                        th:field="*{dText}"
+                        class="form-control col-md-7 col-xs-12">
+                </textarea>
+                    <textarea
+                            th:if="${editable.dImgPath} == null"
+                            th:text="${editable.dText}"
+                            th:field="*{dText}"
+                            class="form-control col-md-7 col-xs-12"
+                            required="required">
+                </textarea>
+                </div>
+            </div>
+        </div>
+        <!--D Image View State-->
+        <input th:if="${editable} != null"
+               id="isDImgUpdated"
+               th:value="true"
+               th:field="*{isDImgUpdated}"
+               type="checkbox"
+               style="display: none"/>
+        <!--D Image View-->
+        <div th:if="${editable} == null"
+             class="item form-group"
+             style="display: none"
+             id="divDImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src=""
+                     style="max-height: 120px;"
+                     id="dImageView"/>
+            </div>
+        </div>
+        <div th:unless="${editable} == null"
+             class="item form-group"
+             id="divDImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img th:src="${editable.dImgPath}"
+                     style="max-height: 120px;"
+                     id="dImageView"/>
+            </div>
+        </div>
+        <!--D image-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                <input type="file"
+                       th:field="*{dImg}"/>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="funkyradio col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   style="border: 0px solid red;"></label>
+            <label style="border: 0px solid blue; font-weight:bold;"
+                   th:text="${lang.selectCorrectAnswer}">Select
+                Correct
+                Answer</label>
+            <div class="funkyradio-primary">
+                <input th:if="${editable} == null"
+                       th:value="a"
+                       name="correct"
+                       type="radio"
+                       id="radio1"
+                       th:checked="true"/>
+                <input th:unless="${editable} == null"
+                       th:value="a"
+                       name="correct"
+                       type="radio"
+                       id="radio1"
+                       th:checked="${editable.a}"/>
+                <label for="radio1"
+                       th:text="${lang.questionA}">A</label>
+            </div>
+
+            <div class="funkyradio-primary">
+                <input th:if="${editable} == null"
+                       th:value="b"
+                       th:field="*{correct}"
+                       type="radio"
+                       name="radio"
+                       id="radio2"/>
+                <input th:unless="${editable} == null"
+                       th:value="b"
+                       name="correct"
+                       type="radio"
+                       id="radio2"
+                       th:checked="${editable.b}"/>
+                <label for="radio2"
+                       th:text="${lang.questionB}">B</label>
+            </div>
+
+            <div class="funkyradio-primary">
+                <input th:if="${editable} == null"
+                       th:value="c"
+                       th:field="*{correct}"
+                       type="radio"
+                       name="radio"
+                       id="radio3"/>
+                <input th:unless="${editable} == null"
+                       th:value="c"
+                       name="correct"
+                       type="radio"
+                       id="radio3"
+                       th:checked="${editable.c}"/>
+                <label for="radio3"
+                       th:text="${lang.questionC}">C</label>
+            </div>
+
+            <div class="funkyradio-primary">
+                <input th:if="${editable} == null"
+                       th:value="d"
+                       th:field="*{correct}"
+                       type="radio"
+                       name="radio"
+                       id="radio4"/>
+                <input th:unless="${editable} == null"
+                       th:value="d"
+                       name="correct"
+                       type="radio"
+                       id="radio4"
+                       th:checked="${editable.d}"/>
+                <label for="radio4"
+                       th:text="${lang.questionD}">D</label>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <br/><br/>
+
+        <!--Description text-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   th:text="${lang.questionQuestionDesc}">Description</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+          <textarea
+                  th:if="${editable} == null"
+                  th:field="*{descText}"
+                  class="form-control col-md-7 col-xs-12"
+                  required="required">
+          </textarea>
+                <div th:unless="${editable} == null">
+            <textarea
+                    th:if="${editable.descImgPath} != null"
+                    th:text="${editable.descText }"
+                    th:field="*{descText}"
+                    class="form-control col-md-7 col-xs-12">
+            </textarea>
+                    <textarea
+                            th:if="${editable.descImgPath} == null"
+                            th:text="${editable.descText }"
+                            th:field="*{descText}"
+                            class="form-control col-md-7 col-xs-12"
+                            required="required">
+            </textarea>
+                </div>
+            </div>
+        </div>
+        <!--Description Image View State-->
+        <input th:if="${editable} != null"
+               id="isDescriptionImgUpdated"
+               th:value="true"
+               th:field="*{isDescriptionImgUpdated}"
+               type="checkbox"
+               style="display: none"/>
+        <!--Description Image View-->
+
+        <div th:if="${editable} == null"
+             class="item form-group"
+             style="display: none"
+             id="divDescriptionImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src=""
+                     style="max-height: 120px;"
+                     id="descriptionImageView"/>
+            </div>
+        </div>
+        <div th:unless="${editable} == null"
+             class="item form-group"
+             id="divDescriptionImageView">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img th:src="${editable.descImgPath}"
+                     style="max-height: 120px;"
+                     id="descriptionImageView"/>
+            </div>
+        </div>
+        <!--Description image-->
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+            <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                <input type="file"
+                       th:field="*{descImg}"/>
+            </div>
+        </div>
+
+        <!--Submit-->
+        <div class="ln_solid"></div>
+        <div th:replace="${@environment.getProperty('submit')} :: submit"></div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+    <div class="x_content" th:fragment="content">
+
+        <a class="btn btn-primary" th:href="${links.university_form}">
+                <i class="fa fa-edit"></i>
+                <span th:text="${lang.add_new_uni}"></span>
+        </a>
+
+    <!-- start project list -->
+    <table class="table table-striped projects">
+
+      <thead>
+        <tr>
+          <th style="width: 1%">#</th>
+          <th th:text="${lang.universityTableUniversity}">University Name</th>
+          <th th:text="${lang.universityTableRuUniversity}">Russian University Name</th>
+          <th th:text="${lang.latitude}">Latitude</th>
+          <th th:text="${lang.longitude}">Longitude</th>
+          <th th:text="${lang.phone}">University Phone</th>
+          <th style="width: 15%" th:text="${lang.edit}">Edit</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="l: ${page.list}">
+        <td th:text="${l.id}"></td>
+        <td th:text="${l.universityName}"></td>
+        <td th:text="${l.ruUniversityName}"></td>
+        <td th:text="${l.latitude}"></td>
+        <td th:text="${l.longitude}"></td>
+        <td th:text="${l.phone}"></td>
+        <!--Edit-->
+        <td>
+          <div th:replace="${@environment.getProperty('editable')} :: editable"></div>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+    <!--pagination-->
+    <div th:replace="${@environment.getProperty('pagination')} :: pagination"></div>
+    <!--/pagination-->
+
+  </div>
+  </body>
+</html>

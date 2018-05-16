@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+    <div th:fragment="editable">
+    <!--<a th:href="'/admin/qa/'+ ${page.currentpage} + '/view/' + ${l.qaId}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>-->
+    <a th:href="${links.editable} + ${page.currentpage} + '/edit/' + ${l.id}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> <span th:text="${lang.edit}"></span></a>
+    <a th:href="${links.editable} + ${page.currentpage} + '/delete/' + ${l.id}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <span th:text="${lang.delete}"></span></a>
+  </div>
+
+  </body>
+</html>

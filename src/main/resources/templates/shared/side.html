@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <body>
+    <!--side panel-->
+    <div class="col-md-3 left_col" th:fragment="side">
+      <div class="left_col scroll-view">
+
+        <!--title-->
+        <div class="navbar nav_title" style="margin-top: 15px">
+            <a href="#" class="site_title">
+                <img src="/images/logo2.png" style="height: 45px; margin-left: 25px;" class="img-rounded" alt="logo"/>
+            </a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!--<div class="profile clearfix">-->
+          <!--<div class="profile_pic">-->
+            <!--<img src="/images/user.png" alt="logo" class="img-circle profile_img"/>-->
+          <!--</div>-->
+          <!--<div class="profile_info">-->
+            <!--<span th:text="${lang.sideWelcome}"></span>-->
+            <!--<h2 th:text="${username}"></h2>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
+            <h3 th:text="${lang.sideGeneral}"></h3>
+
+            <ul class="nav side-menu">
+              <li>
+                <a>
+                  <i class="fa fa-table"></i>
+                  <span th:text="${lang.sideTable}"></span>
+                  <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                  <li><a th:href="${links.users}" class="current-page" th:text="${lang.sideUsers}"></a></li>
+                  <li><a th:href="${links.questions}" class="current-page" th:text="${lang.sideQuestions}"></a></li>
+                  <li><a th:href="${links.courses}" class="current-page" th:text="${lang.sideCourses}"></a></li>
+                  <li><a th:href="${links.faculties}" class="current-page" th:text="${lang.sideFaculties}"></a></li>
+                  <li><a th:href="${links.faqs}" class="current-page" th:text="${lang.sideQAs}"></a></li>
+                  <li><a th:href="${links.topics}" class="current-page" th:text="${lang.sideTopics}"></a></li>
+                  <li><a th:href="${links.universities}" class="current-page" th:text="${lang.sideUniversities}"></a></li>
+                </ul>
+              </li>
+
+              <li>
+                <a>
+                  <i class="fa fa-edit"></i>
+                  <span th:text="${lang.sideForm}"></span>
+                  <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                  <li><a th:href="${links.topic_form}" class="current-page" th:text="${lang.sideFormTopic}"></a></li>
+                  <li><a th:href="${links.question_form}" class="current-page" th:text="${lang.sideFormQuestion}"></a></li>
+                  <li><a th:href="${links.university_form}" class="current-page" th:text="${lang.sideFormUniversity}"></a></li>
+                  <li><a th:href="${links.faculty_form}" class="current-page" th:text="${lang.sideFormFaculty}"></a></li>
+                  <li><a th:href="${links.course_form}" class="current-page" th:text="${lang.sideFormCourse}"></a></li>
+                  <li><a th:href="${links.faq_form}" class="current-page" th:text="${lang.sideFormFAQ}"></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+          <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+          </a>
+        </div>
+        <!-- /menu footer buttons -->
+      </div>
+    </div>
+    <!--/side panel-->
+  </body>
+</html>

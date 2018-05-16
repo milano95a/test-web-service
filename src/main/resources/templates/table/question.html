@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+  <body>
+      <div class="x_content" th:fragment="content ">
+
+          <div class="form-inline container col-lg-12 col-md-12"
+               style=" padding: 10px; background: rgba(49,69,89,0.1)">
+
+              <!--Search-->
+              <div class="form-group col-lg-12 col-md-12">
+                  <form class="form-inline" th:action="@{${links.question_search}}" th:object="${object}" method="post" >
+
+                      <div class="col-md-10" style="display: inline; padding-left: 0px">
+                          <div class="form-group " style="padding-left: 0px">
+
+                              <a class="btn btn-primary" th:href="${links.question_form}" style="margin-bottom: 0px">
+                                  <i class="fa fa-edit"></i>
+                                  <span th:text="${lang.add_new_question}"></span>
+                              </a>
+
+                          </div>
+                          <div class="form-group">
+                              <input
+                                     type="text"
+                                     class="form-control"
+                                     id="search_txt"
+                                     placeholder="Question..."
+                                     th:field="*{searchText}"/>
+                          </div>
+
+                          <div class="form-group ">
+
+                              <button type="submit" class="btn btn-primary" id="search_btn" style="margin-bottom: 0px">
+                                  <i class="fa fa-search"></i>
+                                  <span th:text="${lang.search}">Search</span>
+                              </button>
+
+                          </div>
+                      </div>
+
+
+                  </form>
+              </div>
+
+              <!--Filter-->
+              <div class="form-group col-lg-12 col-md-12"
+                   style=" margin-top: 10px">
+
+                  <form class="form-inline"
+                        th:action="@{${links.form_filter}}"
+                        th:object="${filter}"
+                        method="post" >
+
+                      <div class="form-group">
+                          <select class="form-control" required="required" th:field="*{language}">
+                              <option value="" th:text="${lang.selectLanguage}"></option>
+                              <option th:each="l : ${languages}"
+                                      th:value="${l}"
+                                      th:text="${l}"></option>
+
+                          </select>
+                      </div>
+
+                      <span style="visibility: hidden;">-</span>
+
+                      <div class="form-group">
+                          <select class="form-control" required="required" id="subject" th:field="*{subject}">
+                              <option value="" th:text="${lang.selectSubject}"></option>
+                              <option th:each="s : ${subjects}"
+                                      th:value="${s}"
+                                      th:text="${s}"></option>
+                          </select>
+                      </div>
+
+                      <span style="visibility: hidden;">-</span>
+
+                      <div class="form-group">
+                          <select class="form-control" id="topic" th:field="*{topic}" style=" min-width: 190px">
+                              <option value="" th:text="${lang.selectTopic}"></option>
+                          </select>
+                      </div>
+
+                      <span style="visibility: hidden;">-</span>
+
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-primary" id="filter_btn" style="margin-bottom: 0px">
+                              <span style="visibility: hidden">-</span>
+                              <i class="fa fa-filter"></i>
+                              <span th:text="${lang.filter}"></span>
+                              <span style="visibility: hidden">-</span>
+                          </button>
+                      </div>
+
+                  </form>
+              </div>
+
+          </div>
+
+          <!-- start project list -->
+        <table class="table table-striped projects" style="margin-top: 20px">
+
+          <thead>
+          <tr>
+            <th style="width: 1%">#</th>
+            <th style="width: 20%" th:text="${lang.questionTableQuestion}">Question</th>
+            <th></th>
+            <th th:text="${lang.questionTableLanguage}">Language</th>
+            <th th:text="${lang.questionTableSubject}">Subject</th>
+            <th th:text="${lang.questionTableTopic}">Topic</th>
+            <th style="width: 20%" th:text="${lang.edit}">Edit</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr th:each="l: ${page.list}">
+            <!--Number-->
+            <td th:text="${l.id}"></td>
+            <!--Question-->
+            <td><a th:text="${l.questionText}">Sample question...</a></td>
+            <!--Question image-->
+            <td>
+              <img th:if="${l.questionImgPath} == null"/>
+              <img th:unless="${l.questionImgPath} == null"  src="/images/file.png" class="avatar" />
+            </td>
+            <!--Language-->
+            <td>
+              <a th:text="${l.language}">Uzbek</a>
+            </td>
+            <!--Subject-->
+            <td>
+              <a th:text="${l.subject}">Math</a>
+            </td>
+            <!--Topic-->
+            <td>
+              <a th:text="${l.topic}">Linear equation</a>
+            </td>
+            <!--Edit-->
+            <td>
+              <div th:replace="${@environment.getProperty('editable')} :: editable"></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <!-- end project list -->
+        <div th:replace="${@environment.getProperty('pagination')} :: pagination"></div>
+      </div>
+  </body>
+</html>

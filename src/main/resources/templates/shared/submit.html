@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div class="form-group" th:fragment="submit">
+    <div class="col-md-6 col-md-offset-3">
+      <input type="submit" class="btn btn-success" th:value="${lang.submit}"/>
+      <input th:if="${editable} == null" id="reset" type="reset" class="btn btn-primary" th:value="${lang.reset}"/>
+      <a th:unless="${editable} == null"  th:href="${links.cancel}"><input type="button" class="btn btn-primary" th:value="${lang.cancel}"/></a>
+    </div>
+  </div>
+
+  </body>
+</html>

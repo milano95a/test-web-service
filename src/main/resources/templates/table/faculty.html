@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+    <div class="x_content" th:fragment="content">
+
+        <a class="btn btn-primary" th:href="${links.faculty_form}">
+            <i class="fa fa-edit"></i>
+            <span th:text="${lang.add_new_faculty}"></span>
+        </a>
+
+        <table class="table table-striped projects">
+
+      <thead>
+      <tr>
+        <th style="width: 1%">#</th>
+        <th th:text="${lang.facultyTableFaculty}">Faculty</th>
+        <th th:text="${lang.facultyTableUniversity}">University</th>
+        <th th:text="${lang.facultyTableTopSubject}">3.1 Subject</th>
+        <th th:text="${lang.facultyTableMidSubject}">2.1 Subejct</th>
+        <th th:text="${lang.facultyTableBotSubject}">1.1 Subject</th>
+        <!--<th th:text="${lang.facultyTableGrantPlace}">Grant Place</th>-->
+        <!--<th th:text="${lang.facultyTableContractPlace}">Contract Place</th>-->
+        <th th:text="${lang.facultyTableGrantScore}">Grant Score</th>
+        <th th:text="${lang.facultyTableContractScore}">Contract Score</th>
+        <th style="width: 12%" th:text="${lang.edit}">Edit</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="l: ${page.list}">
+        <td th:text="${l.id}"></td>
+        <td><a th:text="${l.facultyName}"></a></td>
+        <td><a th:text="${l.universityName}"></a></td>
+        <td><a th:text="${l.topSubject}"></a></td>
+        <td><a th:text="${l.midSubject}"></a></td>
+        <td><a th:text="${l.botSubject}"></a></td>
+        <!--<td><a th:text="${l.grantPlace}"></a></td>-->
+        <!--<td><a th:text="${l.contractPlace}"></a></td>-->
+        <td><a th:text="${l.grantScore}"></a></td>
+        <td><a th:text="${l.contractScore}"></a></td>
+        <!--Edit-->
+        <td>
+          <div th:replace="${@environment.getProperty('editable')} :: editable"></div>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+    <div th:replace="${@environment.getProperty('pagination')} :: pagination">
+    </div>
+  </div>
+  </body>
+</html>

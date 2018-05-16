@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head></head>
+
+  <body>
+
+  <div class="x_content" th:fragment="content">
+
+      <a class="btn btn-primary" th:href="${links.topic_form}">
+          <i class="fa fa-edit"></i>
+          <span th:text="${lang.add_new_topic}"></span>
+      </a>
+
+      <!-- start project list -->
+    <table class="table table-striped projects">
+
+      <thead>
+        <tr>
+          <th style="width: 1%">#</th>
+          <th th:text="${lang.topicTableTopic}"></th>
+          <th th:text="${lang.topicTableRuTopic}"></th>
+          <th th:text="${lang.topicTableSubejct}"></th>
+          <th th:text="${lang.topicTableConfig}"></th>
+          <th style="width: 15%" th:text="${lang.edit}"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="l: ${page.list}">
+        <!--Number-->
+        <td th:text="${l.id}"></td>
+        <!--Topic-->
+        <td>
+          <a th:text="${l.topic}"></a>
+        </td>
+        <!--Russian Topic-->
+        <td>
+          <a th:text="${l.ruTopic}"></a>
+        </td>
+        <!--Subject-->
+        <td>
+          <a th:text="${l.subject}"></a>
+        </td>
+        <!--Config-->
+        <td>
+          <a th:text="${l.questionConfig}"></a>
+        </td>
+
+        <!--Edit-->
+        <td>
+          <div th:replace="${@environment.getProperty('editable')} :: editable"></div>
+       </td>
+      </tr>
+      </tbody>
+
+    </table>
+    <!-- /start project list -->
+
+    <!--pagination-->
+    <div th:replace="${@environment.getProperty('pagination')} :: pagination"></div>
+    <!--/pagination-->
+
+  </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+#questionImageView:hover{
+    content:url("/images/user.png");
+}
+
+.hover-view{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.parent {
+    position: relative;
+    display: inline-block;
+}
